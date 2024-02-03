@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="pl">
+  <head>
+    <link rel="stylesheet" href="styles.css" />
+    <title>Custom notification</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  </head>
+  <body>
+    <main>
+      <section>
+        <label for="connectionId">ConnectionId</label>
+        <input id="connectionId" type="text" />
+        <label for="message">Message</label>
+        <input id="message" type=text" />
+        <button id="notify">
+          Click to spawn notification
+        </button>
+      </section>
+      <section>
+        <div id="notification">
+          <h2>Notification</h2>
+          <p id="notification-content"></p>
+        </div>
+      </section>
+    </main>
+    <script src="signalr.min.js"></script>
+    <script src="scripts.js"></script>
+  </body>
+</html>
