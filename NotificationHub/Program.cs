@@ -18,8 +18,6 @@ builder.Services.AddCors(setup =>
 
 var app = builder.Build();
 
-
-//app.UseHttpsRedirection();
 app.UseCors(CORS_POLICY);
 
 app.MapHub<NotifyHub>("/notifyhub");
