@@ -9,7 +9,7 @@ builder.Services.AddCors(setup =>
 {
     setup.AddPolicy(CORS_POLICY, policy =>
         policy
-            .SetIsOriginAllowed(isOriginAllowed: _ => true)
+            //.SetIsOriginAllowed(isOriginAllowed: _ => true)
             .AllowCredentials()
             .AllowAnyMethod()
             .AllowAnyHeader()
@@ -18,8 +18,6 @@ builder.Services.AddCors(setup =>
 
 var app = builder.Build();
 
-
-//app.UseHttpsRedirection();
 app.UseCors(CORS_POLICY);
 
 app.MapHub<NotifyHub>("/notifyhub");
