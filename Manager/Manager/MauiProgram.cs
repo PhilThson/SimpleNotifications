@@ -1,4 +1,6 @@
-﻿using Manager.ViewModels;
+﻿using Manager.Interfaces;
+using Manager.Services;
+using Manager.ViewModels;
 using Manager.Views;
 
 namespace Manager;
@@ -12,6 +14,9 @@ public static class MauiProgram
 		builder.Services.AddSingleton<MainWindowViewModel>();
 		builder.Services.AddTransient<DetailPage>();
 		builder.Services.AddTransient<DetailViewModel>();
+		builder.Services.AddTransient<NotificationsListPage>();
+		builder.Services.AddTransient<NotificationsListViewModel>();
+		builder.Services.AddTransient<IHttpClientService, HttpClientService>();
 
 		builder
 			.UseMauiApp<App>()

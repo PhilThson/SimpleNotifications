@@ -1,4 +1,4 @@
-﻿using Manager.Interfaces;
+﻿using Manager.Interfaces.Commands;
 
 namespace Manager.Commands;
 

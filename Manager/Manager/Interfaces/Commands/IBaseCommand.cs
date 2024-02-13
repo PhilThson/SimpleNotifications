@@ -1,6 +1,6 @@
 ﻿using System.Windows.Input;
 
-namespace Manager.Interfaces;
+namespace Manager.Interfaces.Commands;
 
 public interface IBaseCommand : ICommand
 {

@@ -1,13 +1,20 @@
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.SignalR;
 using NotificationHub;
+using NotificationHub.Helpers;
 
-const string CORS_POLICY = "BasePolicy";
-;
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddSingleton<NotificationsRegistry>();
+builder.Services.AddSingleton<IUserIdProvider, UserIdProvider>();
+
+builder.Services.AddAuthentication(Constants.MyAuthScheme)
+    .AddScheme<AuthenticationSchemeOptions, MyAuthScheme>(Constants.MyAuthScheme, null);
 
 builder.Services.AddSignalR();
 builder.Services.AddCors(setup => 
 {
-    setup.AddPolicy(CORS_POLICY, policy =>
+    setup.AddPolicy(Constants.CORS_POLICY, policy =>
         policy
             .SetIsOriginAllowed(isOriginAllowed: _ => true)
             .AllowCredentials()
@@ -18,8 +25,22 @@ builder.Services.AddCors(setup =>
 
 var app = builder.Build();
 
-app.UseCors(CORS_POLICY);
+app.UseCors(Constants.CORS_POLICY);
+
+app.UseAuthentication();
 
 app.MapHub<NotifyHub>("/notifyhub");
+
+app.MapGet("/notifications", async (context) =>
+{
+    var registry = app.Services.GetRequiredService<NotificationsRegistry>();
+    await context.Response.WriteAsJsonAsync(registry.GetAllNotifications());
+});
+
+app.MapGet("/connectedUsers", async (context) =>
+{
+    var registry = app.Services.GetRequiredService<NotificationsRegistry>();
+    await context.Response.WriteAsJsonAsync(registry.GetAllUsers());
+});
 
 app.Run();

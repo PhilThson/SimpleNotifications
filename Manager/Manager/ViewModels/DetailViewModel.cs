@@ -1,5 +1,5 @@
 ﻿using Manager.Commands;
-using Manager.Interfaces;
+using Manager.Interfaces.Commands;
 using Manager.ViewModels.Abstract;
 
 namespace Manager.ViewModels;

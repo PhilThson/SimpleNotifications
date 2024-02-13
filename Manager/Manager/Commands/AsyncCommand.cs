@@ -1,4 +1,4 @@
-﻿using Manager.Interfaces;
+﻿using Manager.Interfaces.Commands;
 
 namespace Manager.Commands;
 
@@ -50,6 +50,7 @@ public class AsyncCommand : IAsyncCommand
         }
         catch (Exception e)
         {
+            await Shell.Current.DisplayAlert("Wystąpił błąd!", e.Message, "OK");
             _onException?.Invoke(e);
         }
         

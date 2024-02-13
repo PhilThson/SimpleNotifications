@@ -1,19 +1,22 @@
-const connection = new signalR.HubConnectionBuilder()
-  .withUrl("http://localhost:5101/notifyhub")
-  .withAutomaticReconnect()
-  .build();
+let connection = null;
+function connect(user) {
+  connection = new signalR.HubConnectionBuilder()
+    .withUrl("http://localhost:5101/notifyhub?user=" + user)
+    .withAutomaticReconnect()
+    .build();
 
-connection.on("ReceiveNotification", (message) => {
-  let content = document.getElementById("notification-content");
-  content.innerText = message;
-  notification.style.display = "flex";
-  setTimeout(() => {
-    notification.style.display = "none";
-    content.innerText = "";
-  }, 5000);
-});
+  connection.on("ReceiveNotification", (message) => {
+    let content = document.getElementById("notification-content");
+    content.innerText = message;
+    notification.style.display = "flex";
+    setTimeout(() => {
+      notification.style.display = "none";
+      content.innerText = "";
+    }, 5000);
+  });
 
-connection.start();
+  connection.start();
+}
 
 function notify() {
   const connectionId = document.getElementById("connectionId").value;

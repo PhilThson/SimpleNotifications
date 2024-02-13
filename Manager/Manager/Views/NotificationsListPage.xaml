@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Manager.Views.NotificationsListPage"
+             xmlns:vms="clr-namespace:Manager.Domain.ViewModels;assembly=Manager.Domain"
+             Title="NotificationsListPage">
+
+    <Grid Grid.Row="1" Padding="5">
+
+        <CollectionView Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2"
+                        ItemsSource="{Binding Notifications}"
+                        SelectionMode="None"
+
+                        >
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="vms:NotificationViewModel">
+                    <ViewCell>
+                        <Frame>
+                            <VerticalStackLayout>
+                                <Label Text="{Binding }" FontSize="24" />
+                            </VerticalStackLayout>
+                        </Frame>
+                    </ViewCell>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+            <CollectionView.Header>
+                <Label Text="Lista powiadomień" />
+            </CollectionView.Header>
+        </CollectionView>
+    </Grid>
+
+</ContentPage>

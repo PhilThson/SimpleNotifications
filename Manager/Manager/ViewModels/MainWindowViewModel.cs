@@ -1,6 +1,6 @@
 ﻿using System.Collections.ObjectModel;
 using Manager.Commands;
-using Manager.Interfaces;
+using Manager.Interfaces.Commands;
 using Manager.ViewModels.Abstract;
 using Manager.Views;
 
