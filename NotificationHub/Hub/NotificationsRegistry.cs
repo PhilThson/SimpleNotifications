@@ -23,9 +23,9 @@ public class NotificationsRegistry
 		_users.Remove(user);
 	}
 
-	public User? GetUser(string connectionId)
+	public User? GetUser(string userId)
 	{
-		return _users.FirstOrDefault(u => u.ConnectionId == connectionId);
+		return _users.FirstOrDefault(u => u.UserId == userId);
 	}
 
 	public void AddNotification(string message, User user)

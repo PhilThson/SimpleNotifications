@@ -6,26 +6,30 @@ namespace NotificationHub;
 public class NotifyHub : Hub<INotifyClient>
 {
     private readonly NotificationsRegistry _registry;
+    private readonly ILogger<NotifyHub> _logger;
 
-    public NotifyHub(NotificationsRegistry registry)
+    public NotifyHub(NotificationsRegistry registry, ILogger<NotifyHub> logger)
     {
         _registry = registry;
+        _logger = logger;
     }
 
-    public async Task SendNotification(string connectionId, string message)
+    public async Task SendNotification(string userId, string message)
     {
-        var user = _registry.GetUser(Context.ConnectionId) ??
-            throw new ApplicationException("First connect to hub!");
+        var user = _registry.GetUser(userId) ??
+            throw new ApplicationException("No user connected!");
+
+        //TODO: model should conatin sender and receiver
 
         _registry.AddNotification(message, user);
-        await Clients.Client(connectionId).ReceiveNotification(message);
+        await Clients.Client(user.ConnectionId).ReceiveNotification(message);
     }
 
     public override Task OnConnectedAsync()
     {
         var newUser = new User(Context.ConnectionId, Context.UserIdentifier ?? "(no name)");
         _registry.AddUser(newUser);
-        Console.WriteLine($"User: {newUser}");
+        _logger.LogInformation("{User} connected!", newUser);
 
         return base.OnConnectedAsync();
     }
@@ -36,6 +40,7 @@ public class NotifyHub : Hub<INotifyClient>
         if (user != null)
         {
             _registry.RemoveUser(user);
+            _logger.LogInformation("{User} disconnected!", user);
         }
         return base.OnDisconnectedAsync(exception);
     }
