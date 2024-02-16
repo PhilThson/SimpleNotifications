@@ -23,14 +23,18 @@ public class NotificationsRegistry
 		_users.Remove(user);
 	}
 
-	public User? GetUser(string userId)
+	public User? GetUser(string? userId)
 	{
+		if (string.IsNullOrEmpty(userId))
+		{
+			return null;
+		}
 		return _users.FirstOrDefault(u => u.UserId == userId);
 	}
 
-	public void AddNotification(string message, User user)
+	public void AddNotification(string message, User sender, User recipient)
 	{
-		_notifications.Add(new UserNotification(message, user));
+		_notifications.Add(new UserNotification(message, sender, recipient));
 	}
 
 	public List<UserNotification> GetAllNotifications()

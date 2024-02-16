@@ -1,8 +1,10 @@
-﻿using Microsoft.AspNetCore.SignalR;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.SignalR;
 using NotificationHub.Models;
 
 namespace NotificationHub;
 
+[Authorize]
 public class NotifyHub : Hub<INotifyClient>
 {
     private readonly NotificationsRegistry _registry;
@@ -16,32 +18,33 @@ public class NotifyHub : Hub<INotifyClient>
 
     public async Task SendNotification(string userId, string message)
     {
-        var user = _registry.GetUser(userId) ??
-            throw new ApplicationException("No user connected!");
+        var sender = _registry.GetUser(Context.UserIdentifier) ??
+            throw new ApplicationException("User not connected.");
 
-        //TODO: model should conatin sender and receiver
+        var recipient = _registry.GetUser(userId) ??
+            throw new ApplicationException("Recipient not found.");
 
-        _registry.AddNotification(message, user);
-        await Clients.Client(user.ConnectionId).ReceiveNotification(message);
+        _registry.AddNotification(message, sender, recipient);
+        await Clients.Client(recipient.ConnectionId).ReceiveNotification(message);
     }
 
-    public override Task OnConnectedAsync()
+    public override async Task OnConnectedAsync()
     {
         var newUser = new User(Context.ConnectionId, Context.UserIdentifier ?? "(no name)");
         _registry.AddUser(newUser);
         _logger.LogInformation("{User} connected!", newUser);
 
-        return base.OnConnectedAsync();
+        await base.OnConnectedAsync();
     }
 
-    public override Task OnDisconnectedAsync(Exception? exception)
+    public override async Task OnDisconnectedAsync(Exception? exception)
     {
-        var user = _registry.GetUser(Context.ConnectionId);
+        var user = _registry.GetUser(Context.UserIdentifier);
         if (user != null)
         {
             _registry.RemoveUser(user);
             _logger.LogInformation("{User} disconnected!", user);
         }
-        return base.OnDisconnectedAsync(exception);
+        await base.OnDisconnectedAsync(exception);
     }
 }

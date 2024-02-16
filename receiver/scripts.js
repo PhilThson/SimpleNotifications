@@ -64,8 +64,16 @@ function updateConnectionStatus() {
 }
 
 function notify() {
+  if (!connection || connection.state !== "Connected") {
+    alert("Please Log in.");
+    return;
+  }
   const userId = document.getElementById("userId").value;
   const message = document.getElementById("message").value;
+  if (!userId || !message) {
+    alert("Please insert notification data");
+    return;
+  }
   try {
     connection.invoke("SendNotification", userId, message);
   } catch (err) {

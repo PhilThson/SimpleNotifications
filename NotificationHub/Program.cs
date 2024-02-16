@@ -28,6 +28,7 @@ var app = builder.Build();
 app.UseCors(Constants.CORS_POLICY);
 
 app.UseAuthentication();
+app.UseAuthorization();
 
 app.MapHub<NotifyHub>("/notifyhub");
 
@@ -35,12 +36,12 @@ app.MapGet("/notifications", async (context) =>
 {
     var registry = app.Services.GetRequiredService<NotificationsRegistry>();
     await context.Response.WriteAsJsonAsync(registry.GetAllNotifications());
-});
+}).RequireAuthorization();
 
-app.MapGet("/connectedUsers", async (context) =>
+app.MapGet("/users", async (context) =>
 {
     var registry = app.Services.GetRequiredService<NotificationsRegistry>();
     await context.Response.WriteAsJsonAsync(registry.GetAllUsers());
-});
+}).RequireAuthorization();
 
 app.Run();
