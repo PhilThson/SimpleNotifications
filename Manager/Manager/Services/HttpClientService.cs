@@ -11,7 +11,7 @@ public class HttpClientService : IHttpClientService
 			{
 				var client = new HttpClient()
 				{
-					BaseAddress = new Uri("http://localhost:5000")
+					BaseAddress = new Uri("http://localhost:5101")
 				};
 				client.DefaultRequestHeaders.Clear();
 				client.DefaultRequestHeaders.Accept.Add(
@@ -27,7 +27,7 @@ public class HttpClientService : IHttpClientService
 
 	public async Task<IEnumerable<T>> GetAllNotificationsAsync<T>()
 	{
-		var endpoint = "/all";
+		var endpoint = "/notifications?user_id=Manager";
 		var response = await _httpClient.Value.GetAsync(endpoint);
 		if (!response.IsSuccessStatusCode)
 		{

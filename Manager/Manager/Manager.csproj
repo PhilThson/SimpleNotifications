@@ -58,6 +58,7 @@
 	  <None Remove="ViewModels\" />
 	  <None Remove="Services\" />
 	  <None Remove="Interfaces\Commands\" />
+	  <None Remove="Helpers\" />
 	</ItemGroup>
 	<ItemGroup>
 	  <Folder Include="Commands\" />
@@ -66,6 +67,7 @@
 	  <Folder Include="ViewModels\" />
 	  <Folder Include="Services\" />
 	  <Folder Include="Interfaces\Commands\" />
+	  <Folder Include="Helpers\" />
 	</ItemGroup>
 	<ItemGroup>
 	  <ProjectReference Include="..\Manager.Domain\Manager.Domain.csproj" />

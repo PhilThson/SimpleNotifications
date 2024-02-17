@@ -1,11 +1,19 @@
-﻿using System;
-namespace Manager.Domain.ViewModels
+﻿using System.ComponentModel;
+using Manager.Domain.DTOs;
+
+namespace Manager.Domain.ViewModels;
+
+public class NotificationViewModel
 {
-	public class NotificationViewModel
+	public NotificationViewModel(NotificationDto dto)
 	{
-		public NotificationViewModel()
-		{
-		}
+		Sender = dto.Sender.UserId;
+		Recipient = dto.Recipient.UserId;
+		Message = dto.Message;
 	}
+
+	public string Sender { get; set; }
+	public string Recipient { get; set; }
+	public string Message { get; set; }
 }
 

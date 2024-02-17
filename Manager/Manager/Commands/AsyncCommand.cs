@@ -27,6 +27,7 @@ public class AsyncCommand : IAsyncCommand
     }
 
     public event EventHandler CanExecuteChanged;
+    public event Action IsExecutingChanged;
 
     public bool IsExecuting
     {
@@ -35,6 +36,7 @@ public class AsyncCommand : IAsyncCommand
         {
             isExecuting = value;
             RaiseCanExecuteChanged();
+            RaiseIsExecutingChanged();
         }
     }
 
@@ -50,10 +52,9 @@ public class AsyncCommand : IAsyncCommand
         }
         catch (Exception e)
         {
-            await Shell.Current.DisplayAlert("Wystąpił błąd!", e.Message, "OK");
+            //Log exception
             _onException?.Invoke(e);
         }
-        
         IsExecuting = false;
     }
 
@@ -62,5 +63,8 @@ public class AsyncCommand : IAsyncCommand
 
     public void RaiseCanExecuteChanged() =>
         CanExecuteChanged?.Invoke(this, EventArgs.Empty);
+
+    protected void RaiseIsExecutingChanged() =>
+        IsExecutingChanged?.Invoke();
 }
 

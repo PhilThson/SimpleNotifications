@@ -22,8 +22,10 @@
 	</PropertyGroup>
 	<ItemGroup>
 	  <None Remove="ViewModels\" />
+	  <None Remove="DTOs\" />
 	</ItemGroup>
 	<ItemGroup>
 	  <Folder Include="ViewModels\" />
+	  <Folder Include="DTOs\" />
 	</ItemGroup>
 </Project>

@@ -6,9 +6,9 @@ using Manager.Views;
 
 namespace Manager.ViewModels;
 
-public class MainWindowViewModel : BaseViewModel
+public class MainPageViewModel : BaseViewModel
 {
-	public MainWindowViewModel()
+	public MainPageViewModel()
 	{
 
 	}

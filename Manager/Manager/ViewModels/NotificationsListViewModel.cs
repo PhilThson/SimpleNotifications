@@ -1,6 +1,8 @@
 ﻿using System.Collections.ObjectModel;
 using Manager.Commands;
+using Manager.Domain.DTOs;
 using Manager.Domain.ViewModels;
+using Manager.Helpers;
 using Manager.Interfaces;
 using Manager.Interfaces.Commands;
 using Manager.ViewModels.Abstract;
@@ -14,6 +16,7 @@ namespace Manager.ViewModels
 		public NotificationsListViewModel(IHttpClientService httpClientService)
 		{
 			_httpClientService = httpClientService;
+			LoadCommand.IsExecutingChanged += OnIsExecutingChanged;
 		}
 
 		private bool _IsLoading;
@@ -35,7 +38,7 @@ namespace Manager.ViewModels
 			{
 				_Notifications = value;
 				RaisePropertyChanged(nameof(Notifications));
-            }
+			}
 		}
 
 		private IAsyncCommand _LoadCommand;
@@ -44,16 +47,20 @@ namespace Manager.ViewModels
 
 		private async Task Load()
 		{
-			IsLoading = true;
-			var notifications = await _httpClientService.GetAllNotificationsAsync<NotificationViewModel>();
-			Notifications = new ObservableCollection<NotificationViewModel>(notifications);
-			IsLoading = false;
+			var notificationDtos = await _httpClientService.GetAllNotificationsAsync<NotificationDto>();
+			var notificationVMs = notificationDtos.MapToListVM();
+			Notifications = new ObservableCollection<NotificationViewModel>(notificationVMs);
 		}
 
 		private async void OnException(Exception e)
 		{
             await Application.Current.MainPage.DisplayAlert("Błąd", e.Message, "OK");
         }
+
+		private void OnIsExecutingChanged()
+		{
+			IsLoading = LoadCommand.IsExecuting;
+		}
 	}
 }
 

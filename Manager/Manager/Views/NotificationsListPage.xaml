@@ -3,29 +3,46 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Manager.Views.NotificationsListPage"
              xmlns:vms="clr-namespace:Manager.Domain.ViewModels;assembly=Manager.Domain"
-             Title="NotificationsListPage">
+             xmlns:converter="clr-namespace:Manager.Converters"
+             Title="Notifications List">
 
-    <Grid Grid.Row="1" Padding="5">
+    <Grid RowDefinitions="auto, *" Padding="5">
 
-        <CollectionView Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2"
+        <Button Text="Load notifications"
+                TextColor="White"
+                FontAttributes="Bold"
+                BackgroundColor="DarkBlue"
+                Command="{Binding LoadCommand}"
+                />
+
+        <Label Grid.Row="1"
+               IsVisible="{Binding IsLoading}"
+               Text="Loading..."
+               FontAttributes="Italic"
+               FontSize="Large"
+               HorizontalTextAlignment="Center"
+               VerticalTextAlignment="Center"
+               />
+
+        <CollectionView Grid.Row="1"
                         ItemsSource="{Binding Notifications}"
                         SelectionMode="None"
-
                         >
             <CollectionView.ItemTemplate>
                 <DataTemplate x:DataType="vms:NotificationViewModel">
-                    <ViewCell>
-                        <Frame>
-                            <VerticalStackLayout>
-                                <Label Text="{Binding }" FontSize="24" />
-                            </VerticalStackLayout>
-                        </Frame>
-                    </ViewCell>
+                    <HorizontalStackLayout Padding="10">
+                        <Label VerticalOptions="Center">
+                            <Label.Text>
+                                <MultiBinding StringFormat="{}[{0} -> {1}]: {2}">
+                                    <Binding Path="Sender" />
+                                    <Binding Path="Recipient" />
+                                    <Binding Path="Message" />
+                                </MultiBinding>
+                            </Label.Text>
+                        </Label>
+                    </HorizontalStackLayout>
                 </DataTemplate>
             </CollectionView.ItemTemplate>
-            <CollectionView.Header>
-                <Label Text="Lista powiadomień" />
-            </CollectionView.Header>
         </CollectionView>
     </Grid>
 

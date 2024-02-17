@@ -4,7 +4,7 @@ namespace Manager.Views;
 
 public partial class MainPage : ContentPage
 {
-	public MainPage(MainWindowViewModel vm)
+	public MainPage(MainPageViewModel vm)
 	{
 		InitializeComponent();
 		BindingContext = vm;

@@ -11,11 +11,11 @@ public static class MauiProgram
 	{
 		var builder = MauiApp.CreateBuilder();
 		builder.Services.AddSingleton<MainPage>();
-		builder.Services.AddSingleton<MainWindowViewModel>();
+		builder.Services.AddSingleton<MainPageViewModel>();
 		builder.Services.AddTransient<DetailPage>();
 		builder.Services.AddTransient<DetailViewModel>();
-		builder.Services.AddTransient<NotificationsListPage>();
-		builder.Services.AddTransient<NotificationsListViewModel>();
+		builder.Services.AddSingleton<NotificationsListPage>();
+		builder.Services.AddSingleton<NotificationsListViewModel>();
 		builder.Services.AddTransient<IHttpClientService, HttpClientService>();
 
 		builder
