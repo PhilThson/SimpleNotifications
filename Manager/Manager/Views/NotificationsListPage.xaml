@@ -3,7 +3,6 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Manager.Views.NotificationsListPage"
              xmlns:vms="clr-namespace:Manager.Domain.ViewModels;assembly=Manager.Domain"
-             xmlns:converter="clr-namespace:Manager.Converters"
              Title="Notifications List">
 
     <Grid RowDefinitions="auto, *" Padding="5">
@@ -11,6 +10,7 @@
         <Button Text="Load notifications"
                 TextColor="White"
                 FontAttributes="Bold"
+                FontSize="Medium"
                 BackgroundColor="DarkBlue"
                 Command="{Binding LoadCommand}"
                 />
@@ -27,11 +27,11 @@
         <CollectionView Grid.Row="1"
                         ItemsSource="{Binding Notifications}"
                         SelectionMode="None"
-                        >
+                        Margin="10">
             <CollectionView.ItemTemplate>
                 <DataTemplate x:DataType="vms:NotificationViewModel">
-                    <HorizontalStackLayout Padding="10">
-                        <Label VerticalOptions="Center">
+                    <Grid RowDefinitions="auto,auto" Padding="10">
+                        <Label Grid.Row="0" VerticalOptions="Center" FontSize="Large">
                             <Label.Text>
                                 <MultiBinding StringFormat="{}[{0} -> {1}]: {2}">
                                     <Binding Path="Sender" />
@@ -40,7 +40,8 @@
                                 </MultiBinding>
                             </Label.Text>
                         </Label>
-                    </HorizontalStackLayout>
+                        <BoxView Grid.Row="1" HeightRequest="1" Color="DarkBlue" Margin="0,3" />
+                    </Grid>
                 </DataTemplate>
             </CollectionView.ItemTemplate>
         </CollectionView>

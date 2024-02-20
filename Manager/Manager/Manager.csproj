@@ -59,6 +59,7 @@
 	  <None Remove="Services\" />
 	  <None Remove="Interfaces\Commands\" />
 	  <None Remove="Helpers\" />
+	  <None Remove="Converters\" />
 	</ItemGroup>
 	<ItemGroup>
 	  <Folder Include="Commands\" />
@@ -68,6 +69,7 @@
 	  <Folder Include="Services\" />
 	  <Folder Include="Interfaces\Commands\" />
 	  <Folder Include="Helpers\" />
+	  <Folder Include="Converters\" />
 	</ItemGroup>
 	<ItemGroup>
 	  <ProjectReference Include="..\Manager.Domain\Manager.Domain.csproj" />

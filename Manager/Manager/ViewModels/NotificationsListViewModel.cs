@@ -43,9 +43,9 @@ namespace Manager.ViewModels
 
 		private IAsyncCommand _LoadCommand;
 		public IAsyncCommand LoadCommand =>
-			_LoadCommand ??= new AsyncCommand(Load, onException: OnException);
+			_LoadCommand ??= new AsyncCommand(LoadAsync, onException: OnException);
 
-		private async Task Load()
+		private async Task LoadAsync()
 		{
 			var notificationDtos = await _httpClientService.GetAllNotificationsAsync<NotificationDto>();
 			var notificationVMs = notificationDtos.MapToListVM();

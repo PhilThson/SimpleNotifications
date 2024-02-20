@@ -1,9 +1,12 @@
-﻿namespace Manager.Views;
+﻿using Manager.ViewModels;
+
+namespace Manager.Views;
 
 public partial class UsersListPage : ContentPage
 {
-	public UsersListPage()
+	public UsersListPage(UsersListViewModel vm)
 	{
 		InitializeComponent();
+		BindingContext = vm;
 	}
 }

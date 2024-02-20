@@ -16,6 +16,8 @@ public static class MauiProgram
 		builder.Services.AddTransient<DetailViewModel>();
 		builder.Services.AddSingleton<NotificationsListPage>();
 		builder.Services.AddSingleton<NotificationsListViewModel>();
+		builder.Services.AddSingleton<UsersListPage>();
+		builder.Services.AddSingleton<UsersListViewModel>();
 		builder.Services.AddTransient<IHttpClientService, HttpClientService>();
 
 		builder
