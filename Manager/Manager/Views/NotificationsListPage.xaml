@@ -1,0 +1,50 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Manager.Views.NotificationsListPage"
+             xmlns:vms="clr-namespace:Manager.Domain.ViewModels;assembly=Manager.Domain"
+             Title="Notifications List">
+
+    <Grid RowDefinitions="auto, *" Padding="5">
+
+        <Button Text="Load notifications"
+                TextColor="White"
+                FontAttributes="Bold"
+                FontSize="Medium"
+                BackgroundColor="DarkBlue"
+                Command="{Binding LoadCommand}"
+                />
+
+        <Label Grid.Row="1"
+               IsVisible="{Binding IsLoading}"
+               Text="Loading..."
+               FontAttributes="Italic"
+               FontSize="Large"
+               HorizontalTextAlignment="Center"
+               VerticalTextAlignment="Center"
+               />
+
+        <CollectionView Grid.Row="1"
+                        ItemsSource="{Binding Notifications}"
+                        SelectionMode="None"
+                        Margin="10">
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="vms:NotificationViewModel">
+                    <Grid RowDefinitions="auto,auto" Padding="10">
+                        <Label Grid.Row="0" VerticalOptions="Center" FontSize="Large">
+                            <Label.Text>
+                                <MultiBinding StringFormat="{}[{0} -> {1}]: {2}">
+                                    <Binding Path="Sender" />
+                                    <Binding Path="Recipient" />
+                                    <Binding Path="Message" />
+                                </MultiBinding>
+                            </Label.Text>
+                        </Label>
+                        <BoxView Grid.Row="1" HeightRequest="1" Color="DarkBlue" Margin="0,3" />
+                    </Grid>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+    </Grid>
+
+</ContentPage>

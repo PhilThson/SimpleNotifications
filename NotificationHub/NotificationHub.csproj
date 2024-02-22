@@ -1,14 +1,26 @@
 <Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
-    <TargetFramework>net8.0</TargetFramework>
+    <TargetFramework>net6.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <InvariantGlobalization>true</InvariantGlobalization>
   </PropertyGroup>
 
+  <PropertyGroup Condition=" '$(RunConfiguration)' == 'https' " />
+  <PropertyGroup Condition=" '$(RunConfiguration)' == 'http' " />
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.SignalR.Common" Version="8.0.1" />
+    <PackageReference Include="Microsoft.AspNetCore.SignalR.Common" Version="6.0.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Remove="Hub\" />
+    <None Remove="Interfaces\" />
+    <None Remove="Helpers\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Hub\" />
+    <Folder Include="Interfaces\" />
+    <Folder Include="Helpers\" />
+  </ItemGroup>
 </Project>

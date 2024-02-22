@@ -3,19 +3,38 @@
   <head>
     <link rel="stylesheet" href="styles.css" />
     <title>Custom notification</title>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   </head>
   <body>
+    <div id="backdrop"></div>
+    <div id="modal">
+      <h2>Current user</h2>
+      <form class="user-form">
+        <label for="userName">Username:</label>
+        <input id="userName" name="userName" type="text" />
+        <button class="small" type="submit">Submit</button>
+      </form>
+    </div>
+    <header>
+      <nav>
+        <ul>
+          <li class="info">
+            SignalR: <p id="connection-status"><p>
+          </li>
+          <li id="login">
+            <button class="loginButton small">Log in</button>
+          </li>
+        </ul>
+      </nav>
+    </header>
     <main>
       <section>
-        <label for="connectionId">ConnectionId</label>
-        <input id="connectionId" type="text" />
+        <label for="userId">Notify user</label>
+        <input id="userId" type="text" />
         <label for="message">Message</label>
-        <input id="message" type=text" />
-        <button id="notify">
-          Click to spawn notification
-        </button>
+        <input id="message" type="text" />
+        <button id="notify">Click to spawn notification</button>
       </section>
       <section>
         <div id="notification">

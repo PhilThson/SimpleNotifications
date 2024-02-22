@@ -1,8 +1,8 @@
 # SimpleNotifications
 Understanding SignalR library. Practicing web pages.
 
-Notification between two JS clients:
-<img width="1680" alt="Notifications_FirstToSecond_JS" src="https://github.com/PhilThson/SimpleNotifications/assets/63736928/73323b54-6a63-42de-8212-9ab7244d5491">
+Sneding notifications between JS and .NET Clients. List of logged users:
+<img width="1680" alt="ClientsNotifications" src="https://github.com/PhilThson/SimpleNotifications/assets/63736928/01ca3984-ba43-4fa0-8da0-f06b67b2d026">
 
-Notification from .NET client to JS client:
-<img width="1680" alt="Notifications_BackendToFirstJS" src="https://github.com/PhilThson/SimpleNotifications/assets/63736928/a9bca759-f675-4036-b487-8d19501e370b">
+Notifications list:
+<img width="1680" alt="NotificationsList" src="https://github.com/PhilThson/SimpleNotifications/assets/63736928/6db95402-2b98-4231-9698-a112faf338ab">

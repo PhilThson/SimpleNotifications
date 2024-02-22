@@ -1,0 +1,51 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:converters="clr-namespace:Manager.Converters"
+             xmlns:viewmodels="clr-namespace:Manager.Domain.ViewModels;assembly=Manager.Domain"
+             x:Class="Manager.Views.UsersListPage"
+             Title="UsersPage">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converters:InvertedBoolConverter x:Key="InvertedBoolConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <VerticalStackLayout Margin="20" Spacing="10" IsEnabled="{Binding IsLoading,
+                         Converter={StaticResource InvertedBoolConverter}}">
+
+        <Button
+                Text="Fetch connected users"
+                VerticalOptions="Center"
+                HorizontalOptions="FillAndExpand"
+                Command="{Binding LoadCommand}"
+                />
+
+        <ActivityIndicator IsRunning="{Binding IsLoading}" IsVisible="{Binding IsLoading}" />
+
+        <CollectionView ItemsSource="{Binding Users}" SelectionMode="None">
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="{x:Type viewmodels:UserViewModel}">
+                    <SwipeView>
+                        <Grid>
+                            <Frame Margin="5" BackgroundColor="AntiqueWhite" Padding="7">
+                                <HorizontalStackLayout
+                                        Margin="10,0"
+                                        Spacing="400"
+                                        HorizontalOptions="Fill"
+                                        VerticalOptions="CenterAndExpand"
+                                        >
+                                    <Label FontAttributes="Bold" FontSize="Large" Text="{Binding UserName}" />
+                                    <Label FontAttributes="None" Text="{Binding ConnectionId}"
+                                               VerticalTextAlignment="Center"
+                                               />
+                                </HorizontalStackLayout>
+                            </Frame>
+                        </Grid>
+                    </SwipeView>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+    </VerticalStackLayout>
+</ContentPage>
